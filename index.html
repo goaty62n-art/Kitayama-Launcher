@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kitayama Launcher</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  background: #020617;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.sidebar button {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.sidebar button:hover {
+  color: white;
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+}
+
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: block;
+}
+
+.play-btn {
+  background: #22c55e;
+  border: none;
+  padding: 15px 25px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.play-btn:hover {
+  background: #16a34a;
+}
+
+.coming-soon {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+select {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 10px;
+}
+
+/* Game frame */
+#gameFrame {
+  width: 100%;
+  height: 80vh;
+  border: none;
+  margin-top: 20px;
+  display: none;
+}
+</style>
+
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <h1>Kitayama</h1>
+    <button onclick="showTab('play')">Play</button>
+    <button onclick="showTab('mods')">Mods</button>
+    <button onclick="showTab('settings')">Settings</button>
+  </aside>
+
+  <main class="content">
+    
+    <!-- PLAY -->
+    <div id="play" class="tab active">
+      <h2>Play Eaglercraft</h2>
+
+      <label>Select Version:</label><br>
+      <select id="versionSelect">
+        <option value="1.12.2">1.12.2</option>
+        <option value="1.8.8">1.8.8</option>
+        <option value="1.5.2">1.5.2</option>
+      </select>
+
+      <br><br>
+
+      <button class="play-btn" onclick="launchGame()">▶ Launch</button>
+
+      <iframe id="gameFrame"></iframe>
+    </div>
+
+    <!-- MODS -->
+    <div id="mods" class="tab">
+      <h2>Mods</h2>
+      <p class="coming-soon">🚧 Mods are being made, please wait...</p>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="settings" class="tab">
+      <h2>Settings</h2>
+      <p>More settings coming soon.</p>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function showTab(tabId) {
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.classList.remove("active");
+  });
+  document.getElementById(tabId).classList.add("active");
+}
+
+function launchGame() {
+  const version = document.getElementById("versionSelect").value;
+  const frame = document.getElementById("gameFrame");
+
+  const path = `client/${version}/index.html`;
+
+  frame.style.display = "block";
+  frame.src = path;
+}
+</script>
+
+</body>
+</html>
